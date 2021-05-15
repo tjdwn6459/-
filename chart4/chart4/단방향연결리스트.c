@@ -40,16 +40,17 @@ void preinsertNode(HeadNode* h, int data)
 
 void rearInsertNode(HeadNode* h, int data)
 {
-	Node* newNode = (Node*)malloc(sizeof(Node));
+	Node* newNode = (Node*)malloc(sizeof(Node));//newnode에 동적할당 해줌
 	Node* temp;
 
 	//새로운 노드를 생성
 	if (newNode != NULL)//생성할때의 값이 null
 	{
 		newNode->data = data;
-		newNode->next = NULL;//마지막 노드의 값은 null이어야 한다
+		newNode->next = NULL;//마지막 노드의 값은 null이어야 한다(마지막노드 뒤에 삽입하는 노드가 마지막이 되어야 하니까)
 	}
 
+	//헤드노드와 새로운 노드의 연결
 	if (h->head == NULL)
 	{
 		h->head = newNode; //헤드노드의 head의 값에 newNode를 넣어주면 주솟값을 찾아서 연결
@@ -57,7 +58,7 @@ void rearInsertNode(HeadNode* h, int data)
 	}
 	// if 리스트가 있으면...
 
-	temp = h->head;
+	temp = h->head; //임시저장소 TEMP에 
 	while (temp->next != NULL)
 	{
 		temp = temp->next;
@@ -66,6 +67,7 @@ void rearInsertNode(HeadNode* h, int data)
 
 }
 
+//노드안의 값을확인 
 void printNode(HeadNode*h)
 {
 	Node* temp = h->head;
@@ -75,27 +77,28 @@ void printNode(HeadNode*h)
 
 	while (temp != NULL)
 	{
-		printf(" %d번째 노드 데이터 : %d\n", i, temp->data);
-		temp = temp->next;
-		i++;
+		printf(" %d번째 노드 데이터 : %d\n", i, temp->data);//임시로 저장된 안의 데이터 값을 확인
+		temp = temp->next;// 그다음을 가리키는 주솟값을 저장
+		i++;//i값 증가 
 	}
 
 
 }
 
+//전체 삭제 노드 
 void deleteNode(HeadNode*h)
 {
 	
-	Node* curr;
+	Node* curr; //노드를 가리키는 curr포인터 선언
 
-	curr = h->head;
+	curr = h->head; 
 
 	while (curr !=NULL)
-	{
-		int* temp;
-		temp = curr->next;
-		free(curr);
-		curr = temp;
+	
+		int* temp; //임시 변수 temp선언
+		temp = curr->next;//temp에 주소를 복사
+		free(curr);//동적해제를 해준다
+		curr = temp;//다음꺼 저장한다	
 	}
 	
 }
